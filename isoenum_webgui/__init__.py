@@ -5,7 +5,7 @@ from flask import Flask
 import flask_excel
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'you-will-never-guess'
+app.config["SECRET_KEY"] = "you-will-never-guess"
 
 RECORDS = {}
 NMR_DATA = {}
