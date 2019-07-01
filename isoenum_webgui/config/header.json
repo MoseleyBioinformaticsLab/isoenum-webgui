@@ -1,0 +1,62 @@
+[
+    {
+        "title": "Name",
+        "editable": true,
+        "hidden": false
+    },
+    {
+        "title": "Base Identifier",
+        "editable": true,
+        "hidden": false
+    },
+    {
+        "title": "Base SVG Str",
+        "editable": false,
+        "hidden": true
+    },
+    {
+        "title": "Base SVG",
+        "editable": false,
+        "hidden": false
+    },
+    {
+        "title": "Base Molfile",
+        "editable": false,
+        "hidden": true
+    },
+    {
+        "title": "ISO",
+        "editable": true,
+        "hidden": false
+    },
+    {
+        "title": "CHG",
+        "editable": true,
+        "hidden": false
+    },
+    {
+        "title": "Repr Identifier",
+        "editable": false,
+        "hidden": false
+    },
+    {
+        "title": "Repr SVG Str",
+        "editable": false,
+        "hidden": true
+    },
+    {
+        "title": "Repr SVG",
+        "editable": false,
+        "hidden": false
+    },
+    {
+        "title": "Repr Molfile",
+        "editable": false,
+        "hidden": true
+    },
+    {
+        "title": "record_id",
+        "editable": false,
+        "hidden": true
+    }
+]
