@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+
 {% block content %}
 
 <div class="container">
@@ -13,13 +14,20 @@
     <div class="row">
         <form action="" method="post" enctype="multipart/form-data" id="process-form">
             <div class="input-group">
+{#                <div class="custom-file">#}
+{#                    <input type="file" class="custom-file-input" name="from-file">#}
+{#                    <label class="custom-file-label">Choose file</label>#}
+{#                </div>#}
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="from-file">
+                    {{ form.hidden_tag() }}
+                    {{ form.file(class_="custom-file-input") }}
                     <label class="custom-file-label">Choose file</label>
                 </div>
+
                 <div class="input-group-append">
                     <input class="btn btn-success" type="submit" value="Process" name="from-file" id="process-button">
                 </div>
+
             </div>
         </form>
     </div>
