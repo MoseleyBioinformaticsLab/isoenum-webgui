@@ -7,27 +7,22 @@
     <div class="row">
         <h4>Step 1. Enter data.</h4>
     </div>
+
     <div class="row">
-        <p>Choose file (CSV, TSV)</p>
+        <p>Choose file (CSV, JSON)</p>
     </div>
 
     <div class="row">
         <form action="" method="post" enctype="multipart/form-data" id="process-form">
             <div class="input-group">
-{#                <div class="custom-file">#}
-{#                    <input type="file" class="custom-file-input" name="from-file">#}
-{#                    <label class="custom-file-label">Choose file</label>#}
-{#                </div>#}
                 <div class="custom-file">
                     {{ form.hidden_tag() }}
                     {{ form.file(class_="custom-file-input") }}
                     <label class="custom-file-label">Choose file</label>
                 </div>
-
                 <div class="input-group-append">
                     <input class="btn btn-success" type="submit" value="Process" name="from-file" id="process-button">
                 </div>
-
             </div>
         </form>
     </div>
@@ -39,10 +34,9 @@
     </div>
 
     <div class="row">
-        <form action="" method="post">
-            <input class="btn btn-success" type="submit" name="empty-project" value="Create example project">
-        </form>
+        <a class="btn btn-success" href="{{ url_for("example_project") }}">Create example project</a>
     </div>
+
 </div>
 
 <script type="text/javascript" charset="utf8" src="{{ url_for('static', filename='custom/js/home.js') }}"></script>
