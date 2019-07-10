@@ -16,8 +16,8 @@
         <form action="" method="post" enctype="multipart/form-data" id="process-form">
             <div class="input-group">
                 <div class="custom-file">
-                    {{ form.hidden_tag() }}
-                    {{ form.file(class_="custom-file-input") }}
+                    {{ file_input_form.hidden_tag() }}
+                    {{ file_input_form.file(class_="custom-file-input") }}
                     <label class="custom-file-label">Choose file</label>
                 </div>
                 <div class="input-group-append">
