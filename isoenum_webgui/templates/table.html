@@ -1,0 +1,261 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container">
+
+    <div class="row">
+        <h4>Step 2. Update ISO and CHG columns to generate representative InChI.</h4>
+    </div>
+
+    <div class="row">
+        <div class="btn-group" role="group">
+            <button id="export-button" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Export</button>
+            <div class="dropdown-menu" aria-labelledby="export-button">
+                <form id="export-form" method="post" action="">
+                    <input class="dropdown-item" id="export-csv" type="submit" name="export-csv" title="Export CSV" value="Export Table (CSV)">
+                </form>
+                <form id="update-form" method="post" action="">
+                    <input class="dropdown-item" id="export-zip" type="submit" name="export-zip" title="Export" value="Export Project (ZIP)">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <h4>Step 3. Generate NMR-specific InChI.</h4>
+    </div>
+
+    <div class="row">
+        <div class="btn-group">
+            <form id="generate-nmr-form" class="btn-group" method=post action="">
+                <select class="btn btn-primary" id="select-nmr-experiment-button" name="select-nmr-experiment" title="Select NMR experiment">
+                    <option value="1D-1H">1D-1H</option>
+                    <option value="1D-CHSQC">1D-CHSQC</option>
+                </select>
+                <input id="nmr-table-data" type="hidden" name="nmr-inchi-table-data" value="">
+                <input class="btn btn-success" id="generate-nmr-button" type="submit" value="Generate NMR specific InChI">
+            </form>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- Editable table -->
+    <div class="row">
+        <div id="table" class="table table-editable">
+            <table id="inchi-table" class="table-bordered table-responsive-md text-center">
+                <thead>
+                    <tr id="inchi-table-header">
+                        {% for col in table_header %}
+                            {% if not col["hidden"] %}
+                                <th class="text-center {{ col['title'] }}">{{ col['title'] }}</th>
+                            {% endif %}
+                        {% endfor %}
+                        <th class="text-center Update/Remove">Update/Remove</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for record_id, record in table_data.items() %}
+                        <tr id="{{ record_id }}">
+                            {% for col in table_header %}
+                                {% if not col["hidden"] %}
+                                    {% if col["editable"] %}
+                                        {% if record["error_message"] and col["title"] == "Base Identifier" %}
+                                            <td class="bg-danger pt-3-half align-middle {{ col['title'] }}" contenteditable="true">{{ record[col["title"]] | safe }}</td>
+                                        {% else %}
+                                            <td class="pt-3-half align-middle {{ col['title'] }}" contenteditable="true">{{ record[col["title"]] | safe }}</td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td class="pt-3-half align-middle {{ col['title'] }}" contenteditable="false">{{ record[col["title"]] | safe }}</td>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            <td class="pt-3-half align-middle">
+                                <div class="btn-group-vertical">
+                                    <button class="btn btn-primary update-row-button" record_id="{{ record_id }}">Update</button>
+                                    <button class="btn btn-light" disabled></button>
+                                    <button class="btn btn-danger remove-row-button" record_id="{{ record_id }}">Remove</button>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="btn-group">
+            <button class="btn btn-primary" id="add-button" type="button">Add row</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="{{ url_for('static', filename='TableToJson.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='ReloadCachedImg.js') }}"></script>
+
+<script>
+
+    $(document).ready(function() {
+
+        var $inchiTable = $("table#inchi-table");
+        var $numberOfColumns = $("table#inchi-table > thead > tr > th").length;
+
+        $(function() {
+            $("#generate-nmr-button").click(function () {
+                var NMRExperimentType = $("#select-nmr-experiment-button").val();
+                var tableRows = tableToJSON('#inchi-table');
+                $("#nmr-table-data").val(JSON.stringify(tableRows));
+
+            });
+        });
+
+        $(function() {
+           $inchiTable.on('click', 'tr', function() {
+               if ($(this).is(('#inchi-table-header'))) {}
+               else {
+                   $(this).addClass('highlight').siblings().removeClass('highlight');
+               }
+           });
+        });
+
+
+        function applyTooltip(tdElement, errorMessage) {
+            tdElement.tooltip("dispose");
+            tdElement.addClass("bg-danger");
+            tdElement.attr("title", "Incorrect isotope specification: " + errorMessage);
+            tdElement.attr("data-toggle", "tooltip");
+            tdElement.attr("data-placement", "top");
+            tdElement.tooltip("enable");
+            tdElement.tooltip("show");
+        }
+
+        function removeTooltip(tdElement) {
+            tdElement.removeClass("bg-danger");
+            tdElement.attr("title", "");
+            tdElement.tooltip("dispose");
+        }
+
+        $(function() {
+            $('tbody').on('click', '.update-row-button', function() {
+                var record_id = $(this).closest('tr').attr('id');
+                var record_data = rowToJSON('table', record_id);
+                var tdISO = $("tr#" + record_id + " > td.ISO");
+                var tdCHG = $("tr#" + record_id + " > td.CHG");
+                var tdBaseIdentifier = $("tr#" + record_id + " > td.Base.Identifier");
+
+                var request = $.ajax({
+                    url: '/update_record',
+                    type: 'POST',
+                    data: record_data
+                });
+
+                request.fail(function() {
+
+                    var errorType = request.responseJSON.error.type;
+                    var errorMessage = request.responseJSON.error.message;
+
+                    if (errorType === "IsotopeSpecError") {
+                        applyTooltip(tdISO, errorMessage);
+                    }
+
+                    if (errorType === "ChargeSpecError") {
+                        applyTooltip(tdCHG, errorMessage);
+                    }
+
+                });
+
+                request.done(function(data) {
+
+                    removeTooltip(tdISO);
+                    removeTooltip(tdCHG);
+
+                    $('tr#' + record_id + ' > td.Base.SVG').html(data["Base SVG"]);
+                    $('tr#' + record_id + ' > td.ISO').html(data["ISO"]);
+                    $('tr#' + record_id + ' > td.CHG').html(data["CHG"]);
+                    $('tr#' + record_id + ' > td.Repr.Identifier').html(data["Repr Identifier"]);
+                    $('tr#' + record_id + ' > td.Repr.SVG').html(data["Repr SVG"]);
+                });
+            });
+        });
+
+        $(function() {
+            $('tbody').on('click', '.remove-row-button', function() {
+                var record_id = $(this).closest('tr').attr('id');
+
+                var request = $.ajax({
+                    url: '/remove_record',
+                    type: 'POST',
+                    data: {'record_id': record_id}
+                });
+
+                request.done(function(data) {
+                    if (data['success']) {
+                        $("tr#" + record_id).remove();
+                    }
+                    else {
+                        alert("Cannot remove record: " + record_id);
+                    }
+                });
+            });
+        });
+
+        $(function() {
+            $(".add-row-button").click(function() {
+                var record_id = $(this).attr('record_id');
+                var current_tr = $('tr#' + record_id);
+
+                var request = $.ajax({
+                    url: '/add_record',
+                    type: 'POST'
+                });
+
+                request.done(function(data) {
+                    alert(data['record_id'])
+                });
+                console.log(current_tr);
+            });
+        });
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
+        $(function() {
+            $("#add-button").on('click', function () {
+
+                var request = $.ajax({
+                    url: '/add_record',
+                    type: 'POST'
+                });
+
+                request.done(function(data) {
+                    var record_id = data['record_id'];
+                    var tr = $('<tr id=' + record_id + '>');
+                        tr.append($('<td class="pt-3-half align-middle Name" contenteditable="true"></td>'));
+                        tr.append($('<td class="pt-3-half align-middle Base Identifier" contenteditable="true"></td>'));
+                        tr.append($('<td class="pt-3-half align-middle Base SVG" contenteditable="false"></td>'));
+                        tr.append($('<td class="pt-3-half align-middle ISO" contenteditable="true"></td>'));
+                        tr.append($('<td class="pt-3-half align-middle CHG" contenteditable="true"></td>'));
+                        tr.append($('<td class="pt-3-half align-middle Repr Identifier" contenteditable="false"></td>'));
+                        tr.append($('<td class="pt-3-half align-middle Repr SVG" contenteditable="false"></td>'));
+                        tr.append($('<td class="pt-3-half align-middle" contenteditable="false">' +
+                            '<div class="btn-group-vertical">' +
+                            '<button class="btn btn-primary update-row-button">Update</button>' +
+                            '<button class="btn btn-light" disabled></button>' +
+                            '<button class="btn btn-danger remove-row-button">Remove</button>' +
+                            '</div>' +
+                            '</td>'));
+                    $inchiTable.append(tr);
+                });
+            });
+        });
+    });
+</script>
+
+{% endblock content %}
