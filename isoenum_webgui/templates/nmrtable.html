@@ -16,18 +16,10 @@
         <button class="btn btn-primary" id="select-all-button">Select all</button>
         <button class="btn btn-primary" id="deselect-all-button">Deselect all</button>
 
-        <div class="btn-group" role="group">
-            <button id="save-button" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Save</button>
-            <div class="dropdown-menu" aria-labelledby="save-button">
-                <form id="update-form" method="post" action="">
-                    <input id="final-table-data-csv" type="hidden" name="final-table-data-csv" value="">
-                    <input class="dropdown-item" id="save-csv" type="submit" name="save-csv" title="Save as CSV" value="CSV">
-                </form>
-                <form id="update-form" method="post" action="">
-                    <input id="final-table-data-json" type="hidden" name="final-table-data-json" value="">
-                    <input class="dropdown-item" id="save-json" type="submit" name="save-json" title="Save as JSON" value="JSON">
-                </form>
-            </div>
+        <button id="save-button" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Save</button>
+        <div class="dropdown-menu" aria-labelledby="export-button">
+            <a class="dropdown-item" href="{{ url_for("export_csv") }}">CSV</a>
+            <a class="dropdown-item" href="{{ url_for("export_json") }}">JSON</a>
         </div>
     </div>
 
