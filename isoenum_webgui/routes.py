@@ -29,6 +29,7 @@ from . import NMR_DATA
 from . import RECORDS
 from . import HEADER
 from . import CSV_HEADER
+from . import NMR_TYPES
 from . import EXAMPLE_PROJECT
 
 
@@ -82,6 +83,7 @@ def example_project():
 def table():
     if request.method == "POST" and request.form.get("nmr-inchi-table-data"):
         nmr_experiment_type = request.form.get("select-nmr-experiment")
+
         generate_nmr(
             nmr_experiment_type=nmr_experiment_type, nmr_data=NMR_DATA, records=RECORDS
         )
@@ -93,14 +95,13 @@ def table():
 @app.route("/nmrtable", methods=["GET", "POST"])
 def nmrtable():
     nmr_experiment_type = request.args.get("nmr_type", "1D-1H")
+    nmr_experiment_type = NMR_TYPES[nmr_experiment_type]
 
     return render_template(
         "nmrtable.html",
         table_header=HEADER,
         table_data=RECORDS,
-        nmr_table_data=NMR_DATA,
-        nmr_experiment_type=nmr_experiment_type,
-    )
+        nmr_experiment_type=nmr_experiment_type)
 
 
 @app.route("/update_record", methods=["POST"])
