@@ -25,7 +25,6 @@ from isoenum_webgui.proc import update_record
 from isoenum_webgui.proc import create_initial_record
 from isoenum_webgui.proc import create_empty_record
 
-from . import NMR_DATA
 from . import RECORDS
 from . import HEADER
 from . import CSV_HEADER
@@ -85,7 +84,7 @@ def table():
         nmr_experiment_type = request.form.get("select-nmr-experiment")
 
         generate_nmr(
-            nmr_experiment_type=nmr_experiment_type, nmr_data=NMR_DATA, records=RECORDS
+            nmr_experiment_type=nmr_experiment_type, records=RECORDS
         )
         return redirect(url_for("nmrtable", nmr_type=nmr_experiment_type))
 
@@ -149,7 +148,7 @@ def display_molfile(record_id, record_type):
 @app.route("/export_json", methods=["GET"])
 def export_json():
     response = app.response_class(
-        response=json.dumps(RECORDS),
+        response=json.dumps(RECORDS, indent=4),
         status=201,
         mimetype="application/json",
         headers={"Content-Disposition": "attachment;filename=records.json"},
