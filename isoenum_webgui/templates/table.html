@@ -7,20 +7,6 @@
         <h4>Step 2. Update ISO and CHG columns to generate representative InChI.</h4>
     </div>
 
-    <div class="row">
-        <div class="btn-group" role="group">
-            <button id="export-button" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Export</button>
-            <div class="dropdown-menu" aria-labelledby="export-button">
-                <form id="export-form" method="post" action="">
-                    <input class="dropdown-item" id="export-csv" type="submit" name="export-csv" title="Export CSV" value="Export Table (CSV)">
-                </form>
-                <form id="update-form" method="post" action="">
-                    <input class="dropdown-item" id="export-zip" type="submit" name="export-zip" title="Export" value="Export Project (ZIP)">
-                </form>
-            </div>
-        </div>
-    </div>
-
     <br>
 
     <div class="row">
@@ -37,6 +23,13 @@
                 <input id="nmr-table-data" type="hidden" name="nmr-inchi-table-data" value="">
                 <input class="btn btn-success" id="generate-nmr-button" type="submit" value="Generate NMR specific InChI">
             </form>
+
+            <button id="save-button" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Save</button>
+            <div class="dropdown-menu" aria-labelledby="export-button">
+                <a class="dropdown-item" href="{{ url_for("export_csv") }}">CSV</a>
+                <a class="dropdown-item" href="{{ url_for("export_json") }}">JSON</a>
+            </div>
+
         </div>
     </div>
 
