@@ -17,7 +17,6 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "you-will-never-guess"
 
 RECORDS = {}
-NMR_DATA = {}
 
 this_dir = os.path.dirname(__file__)
 with open(os.path.join(this_dir, "config", "example_project.json"), "r") as inf:
