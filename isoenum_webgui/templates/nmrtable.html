@@ -16,7 +16,7 @@
 
         <button id="save-button" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Save</button>
         <div class="dropdown-menu" aria-labelledby="export-button">
-            <a class="dropdown-item" href="{{ url_for("export_csv") }}">CSV</a>
+            <a class="dropdown-item" href="{{ url_for("export_nmr_csv") }}">CSV</a>
             <a class="dropdown-item" href="{{ url_for("export_json") }}">JSON</a>
         </div>
     </div>
@@ -154,12 +154,6 @@
         $(function() {
             $("#save-csv").click(function () {
                 $("#final-table-data-csv").val(JSON.stringify(getJSON()));
-            });
-        });
-
-        $(function() {
-            $("#save-json").click(function () {
-                $("#final-table-data-json").val(JSON.stringify(getJSON()));
             });
         });
     });
