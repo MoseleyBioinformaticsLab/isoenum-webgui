@@ -5,7 +5,6 @@
 Isotopic enumerator web interface routes.
 """
 
-import collections
 import csv
 import io
 import json
@@ -91,20 +90,6 @@ def table():
 
 @app.route("/nmrtable", methods=["GET", "POST"])
 def nmrtable():
-    if request.method == "POST" and request.form.get("save-csv"):
-        docs = json.loads(
-            request.form.get("final-table-data-csv"),
-            object_pairs_hook=collections.OrderedDict,
-        )
-        return redirect(url_for("download_csv"))
-
-    if request.method == "POST" and request.form.get("save-json"):
-        docs = json.loads(
-            request.form.get("final-table-data-json"),
-            object_pairs_hook=collections.OrderedDict,
-        )
-        return redirect(url_for("download_json"))
-
     nmr_experiment_type = request.args.get("nmr_type", "1D-1H")
 
     return render_template(
