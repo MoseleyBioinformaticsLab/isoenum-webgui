@@ -28,7 +28,9 @@ def generate_repr_molfile(inchi_str, iso_str, chg_str):
                     "e.g. 13:C:1"
                 )
 
-            molfile.add_iso(atom_symbol=atom_symbol, atom_number=atom_number, isotope=isotope)
+            molfile.add_iso(
+                atom_symbol=atom_symbol, atom_number=atom_number, isotope=isotope
+            )
 
     if chg_str:
         for chg_spec in chg_str.split(","):
@@ -39,7 +41,9 @@ def generate_repr_molfile(inchi_str, iso_str, chg_str):
                     "Incorrect charge specification, use <element:position:charge> format,"
                     "e.g. O:4:-1"
                 )
-            molfile.add_chg(atom_symbol=atom_symbol, atom_number=atom_number, charge=charge)
+            molfile.add_chg(
+                atom_symbol=atom_symbol, atom_number=atom_number, charge=charge
+            )
     return molfile
 
 
@@ -103,27 +107,37 @@ def update_record(record):
             for iso in base_molfile_iso:
                 _, atom_symbol, atom_number = iso
                 iso_list.append(":".join(iso))
-                base_molfile.remove_iso(atom_symbol=atom_symbol, atom_number=atom_number)
+                base_molfile.remove_iso(
+                    atom_symbol=atom_symbol, atom_number=atom_number
+                )
 
             for chg in base_molfile_chg:
                 atom_symbol, atom_number, _ = chg
                 chg_list.append(":".join(chg))
-                base_molfile.remove_chg(atom_symbol=atom_symbol, atom_number=atom_number)
+                base_molfile.remove_chg(
+                    atom_symbol=atom_symbol, atom_number=atom_number
+                )
 
         record_inchi_str = isoenum.fileio.create_inchi_from_ctfile_obj(base_molfile)
         base_molfile_str = base_molfile.writestr(file_format="ctfile")
 
         base_svg_str = create_svg(inchi_str=record_inchi_str)
-        base_svg_link = create_svg_link(svg_str=base_svg_str, record_id=record_id, record_type="base")
+        base_svg_link = create_svg_link(
+            svg_str=base_svg_str, record_id=record_id, record_type="base"
+        )
 
         iso_str = ",".join(iso_list)
         chg_str = ",".join(chg_list)
 
-        repr_inchi_str = create_repr_inchi(base_inchi_str=record_inchi_str, iso_str=iso_str, chg_str=chg_str)
+        repr_inchi_str = create_repr_inchi(
+            base_inchi_str=record_inchi_str, iso_str=iso_str, chg_str=chg_str
+        )
         repr_molfile = isoenum.fileio.create_ctfile(repr_inchi_str)
         repr_molfile_str = repr_molfile.writestr(file_format="ctfile")
         repr_svg_str = create_svg(inchi_str=repr_inchi_str)
-        repr_svg_link = create_svg_link(svg_str=repr_svg_str, record_id=record_id, record_type="repr")
+        repr_svg_link = create_svg_link(
+            svg_str=repr_svg_str, record_id=record_id, record_type="repr"
+        )
 
         html_iso_str = "<br>".join(iso_list)
         html_chg_str = "<br>".join(chg_list)
@@ -139,7 +153,7 @@ def update_record(record):
             "Repr Molfile": repr_molfile_str,
             "ISO": html_iso_str,
             "CHG": html_chg_str,
-            "error_message": ""
+            "error_message": "",
         }
     except ValueError as err:
         error_message = " ".join(err.args)
@@ -154,7 +168,7 @@ def update_record(record):
             "Repr Molfile": "",
             "ISO": "",
             "CHG": "",
-            "error_message": error_message
+            "error_message": error_message,
         }
 
     return record
@@ -182,7 +196,10 @@ def create_svg_link(svg_str, record_id, record_type):
     :return:
     :rtype:
     """
-    svg_link = '<a href="{}" target="_blank">{}</a>'.format(url_for('display_molfile', record_id=record_id, record_type=record_type), svg_str)
+    svg_link = '<a href="{}" target="_blank">{}</a>'.format(
+        url_for("display_molfile", record_id=record_id, record_type=record_type),
+        svg_str,
+    )
     return svg_link
 
 
@@ -210,16 +227,17 @@ def generate_nmr(nmr_experiment_type, nmr_data, records):
                 experiment_type=nmr_experiment_type,
                 couplings=[],
                 decoupled=[],
-                subset=False)
+                subset=False,
+            )
 
             for data in sdfile.sdfdata:
                 coupling_type = data["CouplingType"]
                 nmr_inchi = data["InChI"][0]
                 me_group = data["MEGroup"][0]
 
-                record["NMR"][nmr_experiment_type][repr_inchi].append({"descr": coupling_type,
-                                                                       "inchi": nmr_inchi,
-                                                                       "me_group": me_group})
+                record["NMR"][nmr_experiment_type][repr_inchi].append(
+                    {"descr": coupling_type, "inchi": nmr_inchi, "me_group": me_group}
+                )
         else:
             continue
 
