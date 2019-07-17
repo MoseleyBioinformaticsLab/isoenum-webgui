@@ -62,7 +62,9 @@
             {% for nmr_inchi in nmr_table_data[nmr_experiment_type][row["record_id"]][row["Repr Identifier"]] %}
                 <tr class="nmr-specific-inchi-row" align="left">
                     <td><input type="checkbox" title="Select row" class="group-{{ row["record_id"] }}"></td>
-                    <td>{{ nmr_inchi["descr"] }}</td>
+                    <td>
+                        {{ " + <br>".join(nmr_inchi["descr"]) | safe }}
+                    </td>
                     <td>{{ nmr_inchi["inchi"] }}</td>
                     <td>{{ nmr_inchi["me_group"] }}</td>
 
