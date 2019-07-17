@@ -211,7 +211,7 @@ def generate_nmr(nmr_experiment_type, nmr_data, records):
                 subset=False)
 
             for data in sdfile.sdfdata:
-                coupling_type = " + ".join(data["CouplingType"])
+                coupling_type = data["CouplingType"]
                 nmr_inchi = data["InChI"][0]
                 me_group = data.get("MEGroup", '0')[0]
 
