@@ -5,6 +5,7 @@ from flask import url_for
 import isoenum
 
 from . import HEADER
+from . import NMR_TYPES
 
 
 def generate_repr_molfile(inchi_str, iso_str, chg_str):
@@ -194,7 +195,6 @@ def generate_nmr(nmr_experiment_type, nmr_data, records):
     :return:
     """
     nmr_data.setdefault(nmr_experiment_type, {})
-    nmr_types = {"1D-1H": "1D1H", "1D-CHSQC": "1DCHSQC"}
 
     for record in records.values():
         record_id = record["record_id"]
@@ -205,7 +205,7 @@ def generate_nmr(nmr_experiment_type, nmr_data, records):
         if not nmr_data[nmr_experiment_type][record_id][repr_inchi]:
             sdfile = isoenum.api.iso_nmr(
                 path_or_id=repr_inchi,
-                experiment_type=nmr_types[nmr_experiment_type],
+                experiment_type=NMR_TYPES[nmr_experiment_type],
                 couplings=[],
                 decoupled=[],
                 subset=False)
