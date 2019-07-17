@@ -64,7 +64,7 @@
             <tr>
                 {% for col in table_header %}
                     {% if not col["hidden"] %}
-                        <td class="pt-3-half" contenteditable="false">{{ row[col["title"]] | safe }}</td>
+                        <td class="pt-3-half align-middle" contenteditable="false">{{ row[col["title"]] | safe }}</td>
                     {% endif %}
                 {% endfor %}
             </tr>
