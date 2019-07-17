@@ -26,6 +26,9 @@ with open(os.path.join(this_dir, "config", "example_project.json"), "r") as inf:
 with open(os.path.join(this_dir, "config", "header.json"), "r") as inf:
     HEADER = json.load(inf)
 
+with open(os.path.join(this_dir, "config", "csv_header.json"), "r") as inf:
+    CSV_HEADER = json.load(inf)
+
 app.register_blueprint(errors)
 flask_excel.init_excel(app)
 
