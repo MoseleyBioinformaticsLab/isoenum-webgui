@@ -91,9 +91,7 @@ def table():
 
 @app.route("/nmrtable", methods=["GET", "POST"])
 def nmrtable():
-    if request.method == "POST" and request.form.get("go-back-button"):
-        return redirect(url_for("table"))
-
+    
     if request.method == "POST" and request.form.get("export-zip"):
         return redirect(url_for("export", cpd=request.args.get("cpd")))
 
