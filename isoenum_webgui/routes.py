@@ -91,10 +91,6 @@ def table():
 
 @app.route("/nmrtable", methods=["GET", "POST"])
 def nmrtable():
-    
-    if request.method == "POST" and request.form.get("export-zip"):
-        return redirect(url_for("export", cpd=request.args.get("cpd")))
-
     if request.method == "POST" and request.form.get("save-csv"):
         docs = json.loads(
             request.form.get("final-table-data-csv"),
