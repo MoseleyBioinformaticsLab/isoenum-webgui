@@ -1,0 +1,197 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- Editable table -->
+<div class="container">
+
+    <h4>Step 4. Select relevant NMR-specific InChI.</h4>
+
+    <div class="btn-group">
+        <form id="update-form" method="post" action="">
+            <input class="btn btn-info" id="go-back-button" type="submit" value="Go back" name="go-back-button">
+        </form>
+    </div>
+
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <button class="btn btn-primary" id="select-all-button">Select all</button>
+        <button class="btn btn-primary" id="deselect-all-button">Deselect all</button>
+
+        <div class="btn-group" role="group">
+            <button id="save-button" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Save</button>
+            <div class="dropdown-menu" aria-labelledby="save-button">
+                <form id="update-form" method="post" action="">
+                    <input id="final-table-data-csv" type="hidden" name="final-table-data-csv" value="">
+                    <input class="dropdown-item" id="save-csv" type="submit" name="save-csv" title="Save as CSV" value="CSV">
+                </form>
+                <form id="update-form" method="post" action="">
+                    <input id="final-table-data-json" type="hidden" name="final-table-data-json" value="">
+                    <input class="dropdown-item" id="save-json" type="submit" name="save-json" title="Save as JSON" value="JSON">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-group" role="group">
+        <button id="export-button" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Export</button>
+        <div class="dropdown-menu" aria-labelledby="export-button">
+            <form id="export-form" method="post" action="">
+                <input class="dropdown-item" id="export-csv" type="submit" name="export-csv" title="Export CSV" value="Export Table (CSV)">
+            </form>
+            <form id="update-form" method="post" action="">
+                <input class="dropdown-item" id="export-zip" type="submit" name="export-zip" title="Export" value="Export Project (ZIP)">
+            </form>
+        </div>
+    </div>
+
+<br>
+<br>
+
+{% for row in table_data.values() %}
+
+    <p><b>{{ row['Base Identifier'].split("/")[1] }}</b></p>
+
+    <table class="table table-editable table-bordered table-responsive-md text-center inchi-table" id="{{ row['record_id'] }}">
+        <thead>
+            <tr id="inchi-table-header">
+                {% for col in table_header %}
+                    {% if not col["hidden"] %}
+                        <th class="text-center">{{ col['title'] }}</th>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for col in table_header %}
+                    {% if not col["hidden"] %}
+                        <td class="pt-3-half" contenteditable="false">{{ row[col["title"]] | safe }}</td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-responsive-md text-center nmr-specific-inchi-table sortable-theme-bootstrap" data-sortable id="{{ row['record_id'] }}-nmr-specific">
+        <thead>
+            <tr align="left">
+                <th data-sortable="false"><input type="checkbox" title="Select all" class="parent-checkbox" data-group=".group-{{ row['record_id'] }}"></th>
+                <th>Resonance Description</th>
+                <th>NMR Specific InChI</th>
+                <th>ME Group</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for nmr_inchi in nmr_table_data[nmr_experiment_type][row["record_id"]][row["Repr Identifier"]] %}
+                <tr class="nmr-specific-inchi-row" align="left">
+                    <td><input type="checkbox" title="Select row" class="group-{{ row["record_id"] }}"></td>
+                    <td>{{ nmr_inchi["descr"] }}</td>
+                    <td>{{ nmr_inchi["inchi"] }}</td>
+                    <td>{{ nmr_inchi["me_group"] }}</td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br><br><br>
+{% endfor %}
+</div>
+
+<script type="text/javascript" src="{{ url_for('static', filename='TableToJson.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='ReloadCachedImg.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='sortable.min.js') }}"></script>
+
+
+<script>
+
+    $(document).ready(function() {
+
+        $(function(){
+            $('#select-all-button').on('click', function() {
+                $(".parent-checkbox").each(function(index){
+                    var checkboxSelectAll = $(this);
+                    var checkboxGroup = $(this).data("group");
+
+                    checkboxSelectAll.prop('checked', true);
+                    $(checkboxGroup).prop('checked', true);
+                });
+            });
+        });
+
+        $(function(){
+            $('#deselect-all-button').on('click', function() {
+                $(".parent-checkbox").each(function(index){
+                    var checkboxSelectAll = $(this);
+                    var checkboxGroup = $(this).data("group");
+
+                    checkboxSelectAll.prop('checked', false);
+                    $(checkboxGroup).prop('checked', false);
+                });
+            });
+        });
+
+        $(function(){
+            $(".parent-checkbox").each(function(index){
+                var checkboxSelectAll = $(this);
+                var checkboxGroup = $(this).data("group");
+
+                checkboxSelectAll.change(function(){  // Select all change
+                     $(checkboxGroup).prop('checked', checkboxSelectAll.prop("checked"));
+                });
+                $(checkboxGroup).change(function(){  // Individual checkboxes change
+                    checkboxSelectAll.prop('checked', false);
+                    if ($(checkboxGroup+':checked').length === $(checkboxGroup).length ){
+                        checkboxSelectAll.prop('checked', true);
+                    }
+                });
+            });
+        });
+
+        var getJSON = function(){
+            var jsonArray = [];
+
+            $('table').each(function(index) {
+
+                if (this.id.endsWith("-nmr-specific")) {
+                    var table = this;
+                    var parentTableID = this.id.replace("-nmr-specific", "");
+
+                    var jsonTable = tableToJSON('#' + table.id);
+                    var jsonParentTable = tableToJSON('#' + parentTableID);
+
+                    $.each($('table#' + table.id + ' tbody tr'), function(row_index) {
+                        if ($(this).find('td input').prop('checked')) {
+
+                            var result = {
+                                "Name": jsonParentTable[0]["Name"],
+                                "Resonance Description": jsonTable[row_index]["Resonance Description"],
+                                "Base Identifier": jsonParentTable[0]["Base Identifier"],
+                                "Repr Identifier": jsonParentTable[0]["Repr Identifier"],
+                                "NMR Specific InChI": jsonTable[row_index]["NMR Specific InChI"]};
+                            jsonArray.push(result);
+                        }
+                    });
+                }
+            });
+            return jsonArray;
+        };
+
+        $(function() {
+            $("#save-csv").click(function () {
+                $("#final-table-data-csv").val(JSON.stringify(getJSON()));
+            });
+        });
+
+        $(function() {
+            $("#save-json").click(function () {
+                $("#final-table-data-json").val(JSON.stringify(getJSON()));
+            });
+        });
+
+
+
+    });
+
+</script>
+
+{% endblock content %}
