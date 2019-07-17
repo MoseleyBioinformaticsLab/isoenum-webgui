@@ -59,7 +59,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for nmr_inchi in nmr_table_data[nmr_experiment_type][row["record_id"]][row["Repr Identifier"]] %}
+            {% for nmr_inchi in row["NMR"][nmr_experiment_type][row["Repr Identifier"]] %}
                 <tr class="nmr-specific-inchi-row" align="left">
                     <td><input type="checkbox" title="Select row" class="group-{{ row["record_id"] }}"></td>
                     <td>
