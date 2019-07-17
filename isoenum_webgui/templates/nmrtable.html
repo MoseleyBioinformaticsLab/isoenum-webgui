@@ -75,11 +75,6 @@
 {% endfor %}
 </div>
 
-<script type="text/javascript" src="{{ url_for('static', filename='TableToJson.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='ReloadCachedImg.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='sortable.min.js') }}"></script>
-
-
 <script>
 
     $(document).ready(function() {
@@ -165,9 +160,6 @@
                 $("#final-table-data-json").val(JSON.stringify(getJSON()));
             });
         });
-
-
-
     });
 
 </script>
