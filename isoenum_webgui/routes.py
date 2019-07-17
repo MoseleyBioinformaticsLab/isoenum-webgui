@@ -82,7 +82,9 @@ def example_project():
 def table():
     if request.method == "POST" and request.form.get("nmr-inchi-table-data"):
         nmr_experiment_type = request.form.get("select-nmr-experiment")
-        generate_nmr(nmr_experiment_type=nmr_experiment_type, nmr_data=NMR_DATA, records=RECORDS)
+        generate_nmr(
+            nmr_experiment_type=nmr_experiment_type, nmr_data=NMR_DATA, records=RECORDS
+        )
         return redirect(url_for("nmrtable", nmr_type=nmr_experiment_type))
 
     return render_template("table.html", table_header=HEADER, table_data=RECORDS)
@@ -143,16 +145,18 @@ def display_molfile(record_id, record_type):
     return render_template("molfile.html", svg=svg, molfile=molfile)
 
 
-@app.route("/export_json", methods=['GET'])
+@app.route("/export_json", methods=["GET"])
 def export_json():
-    response = app.response_class(response=json.dumps(RECORDS),
-                                  status=201,
-                                  mimetype="application/json",
-                                  headers={"Content-Disposition": "attachment;filename=records.json"})
+    response = app.response_class(
+        response=json.dumps(RECORDS),
+        status=201,
+        mimetype="application/json",
+        headers={"Content-Disposition": "attachment;filename=records.json"},
+    )
     return response
 
 
-@app.route("/export_csv", methods=['GET'])
+@app.route("/export_csv", methods=["GET"])
 def export_csv():
     textio = io.StringIO()
     csv_writer = csv.writer(textio)
@@ -163,9 +167,10 @@ def export_csv():
         row = [record[title] for title in header]
         csv_writer.writerow(row)
 
-    response = app.response_class(response=textio.getvalue(),
-                                  status=201,
-                                  mimetype="text/csv",
-                                  headers={"Content-Disposition": "attachment;filename=records.csv"})
+    response = app.response_class(
+        response=textio.getvalue(),
+        status=201,
+        mimetype="text/csv",
+        headers={"Content-Disposition": "attachment;filename=records.csv"},
+    )
     return response
-
