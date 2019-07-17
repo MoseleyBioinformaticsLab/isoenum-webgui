@@ -203,7 +203,7 @@ def create_svg_link(svg_str, record_id, record_type):
     return svg_link
 
 
-def generate_nmr(nmr_experiment_type, nmr_data, records):
+def generate_nmr(nmr_experiment_type, records):
     """
 
     :param nmr_experiment_type:
@@ -211,7 +211,6 @@ def generate_nmr(nmr_experiment_type, nmr_data, records):
     :param records:
     :return:
     """
-    nmr_data.setdefault(nmr_experiment_type, {})
     nmr_experiment_type = NMR_TYPES[nmr_experiment_type]
 
     for record in records.values():
