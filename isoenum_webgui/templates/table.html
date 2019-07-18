@@ -225,11 +225,11 @@
                 request.done(function(data) {
                     var record_id = data['record_id'];
                     var tr = $('<tr id=' + record_id + '>');
-                        tr.append($('<td class="pt-3-half align-middle Name" contenteditable="true"></td>'));
-                        tr.append($('<td class="pt-3-half align-middle Base Identifier" contenteditable="true"></td>'));
+                        tr.append($('<td class="pt-3-half align-middle Name" contenteditable="true" spellcheck="false"></td>'));
+                        tr.append($('<td class="pt-3-half align-middle Base Identifier" contenteditable="true" spellcheck="false"></td>'));
                         tr.append($('<td class="pt-3-half align-middle Base SVG" contenteditable="false"></td>'));
-                        tr.append($('<td class="pt-3-half align-middle ISO" contenteditable="true"></td>'));
-                        tr.append($('<td class="pt-3-half align-middle CHG" contenteditable="true"></td>'));
+                        tr.append($('<td class="pt-3-half align-middle ISO" contenteditable="true" spellcheck="false"></td>'));
+                        tr.append($('<td class="pt-3-half align-middle CHG" contenteditable="true" spellcheck="false"></td>'));
                         tr.append($('<td class="pt-3-half align-middle Repr Identifier" contenteditable="false"></td>'));
                         tr.append($('<td class="pt-3-half align-middle Repr SVG" contenteditable="false"></td>'));
                         tr.append($('<td class="pt-3-half align-middle" contenteditable="false">' +
