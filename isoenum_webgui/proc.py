@@ -9,12 +9,13 @@ from . import NMR_TYPES
 
 
 def generate_repr_molfile(inchi_str, iso_str, chg_str):
-    """
+    """Generate representative `Molfile` using isotope and charge specification strings.
 
-    :param inchi_str:
-    :param iso_str:
-    :param chg_str:
-    :return:
+    :param str inchi_str: `InChI` string.
+    :param str iso_str: Isotope specification.
+    :param str chg_str: Charge specification.
+    :return: Representative `Molfile`.
+    :rtype: :class:`~ctfile.ctfile.Molfile`
     """
     molfile = isoenum.fileio.create_ctfile(inchi_str)
 
@@ -48,10 +49,9 @@ def generate_repr_molfile(inchi_str, iso_str, chg_str):
 
 
 def generate_table(records):
-    """
+    """Generate `InChI` table.
 
-    :param records:
-    :return:
+    :param dict records: Global RECORDS store.
     """
     for index, record in enumerate(records.values(), start=1):
         repr_record = update_record(record=record)
@@ -60,9 +60,12 @@ def generate_table(records):
 
 
 def create_initial_record(header, row):
-    """
+    """Initialize record.
 
-    :return:
+    :param list header: Record keys.
+    :param list row: Record values.
+    :return: Record dictionary.
+    :rtype: dict
     """
     record = create_empty_record()
     record.update(dict(zip(header, row)))
@@ -70,12 +73,11 @@ def create_initial_record(header, row):
 
 
 def update_record(record):
-    """
+    """Update record.
 
-    :param inchi_str:
-    :param iso_str:
-    :param chg_str:
-    :return:
+    :param dict record: Record.
+    :return: Updated record.
+    :rtype: dict
     """
     record_inchi_str = record["Base Identifier"]
     record_iso_str = record["ISO"]
@@ -174,7 +176,15 @@ def update_record(record):
     return record
 
 
-def create_repr_inchi(base_inchi_str, chg_str, iso_str):
+def create_repr_inchi(base_inchi_str, iso_str, chg_str):
+    """Create representative `InChI` string.
+
+    :param str base_inchi_str: Base `InChI` string
+    :param srr iso_str: Isotope specification.
+    :param str chg_str: Charge specification.
+    :return: Representative `InChI` string.
+    :rtype: str
+    """
     repr_molfile = generate_repr_molfile(
         inchi_str=base_inchi_str, iso_str=iso_str, chg_str=chg_str
     )
@@ -183,6 +193,12 @@ def create_repr_inchi(base_inchi_str, chg_str, iso_str):
 
 
 def create_svg(inchi_str):
+    """Create SVG from `InChI` string.
+
+    :param str inchi_str: `InChI` string.
+    :return: SVG string.
+    :rtype: str
+    """
     svg_str = isoenum.fileio.create_svg_str(
         inchi_str, xH="-xH", xe="-xe", xi="-xi", bg="-xb none"
     )
@@ -190,11 +206,13 @@ def create_svg(inchi_str):
 
 
 def create_svg_link(svg_str, record_id, record_type):
-    """
+    """Create SVG link.
 
-    :param svg_str:
-    :return:
-    :rtype:
+    :param str svg_str: SVG string.
+    :param str record_id: Record id.
+    :param str record_type: Record type: base or repr.
+    :return: SVG link.
+    :rtype: str
     """
     svg_link = '<a href="{}" target="_blank">{}</a>'.format(
         url_for("display_molfile", record_id=record_id, record_type=record_type),
@@ -204,12 +222,12 @@ def create_svg_link(svg_str, record_id, record_type):
 
 
 def generate_nmr(nmr_experiment_type, records):
-    """
+    """Generate NMR specific `InChI` tables.
 
-    :param nmr_experiment_type:
-    :param nmr_data:
-    :param records:
-    :return:
+    :param str nmr_experiment_type: NMR experiment type.
+    :param dict records: Global RECORDS dictionary.
+    :return: None.
+    :rtype: :py:obj:`None`
     """
     nmr_experiment_type = NMR_TYPES[nmr_experiment_type]
 
