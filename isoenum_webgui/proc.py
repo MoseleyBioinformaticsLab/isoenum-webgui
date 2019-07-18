@@ -214,11 +214,12 @@ def generate_nmr(nmr_experiment_type, records):
     nmr_experiment_type = NMR_TYPES[nmr_experiment_type]
 
     for record in records.values():
+        record_id = record["record_id"]
         repr_inchi = record["Repr Identifier"]
 
         record.setdefault("NMR", {})
         record["NMR"].setdefault(nmr_experiment_type, {})
-        record["NMR"][nmr_experiment_type].setdefault(repr_inchi, [])
+        record["NMR"][nmr_experiment_type].setdefault(repr_inchi, {})
 
         if not record["NMR"][nmr_experiment_type][repr_inchi]:
             sdfile = isoenum.api.iso_nmr(
@@ -229,14 +230,19 @@ def generate_nmr(nmr_experiment_type, records):
                 subset=False,
             )
 
-            for data in sdfile.sdfdata:
+            for index, data in enumerate(sdfile.sdfdata, start=1):
                 coupling_type = data["CouplingType"]
                 nmr_inchi = data["InChI"][0]
                 me_group = data["MEGroup"][0]
+                row_id = "{}_{}".format(record_id, index)
 
-                record["NMR"][nmr_experiment_type][repr_inchi].append(
-                    {"descr": coupling_type, "inchi": nmr_inchi, "me_group": me_group}
-                )
+                record["NMR"][nmr_experiment_type][repr_inchi][row_id] = {
+                    "descr": coupling_type,
+                    "inchi": nmr_inchi,
+                    "me_group": me_group,
+                    "row_id": row_id,
+                }
+
         else:
             continue
 
