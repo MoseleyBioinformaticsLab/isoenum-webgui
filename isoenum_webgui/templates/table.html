@@ -57,9 +57,9 @@
                                 {% if not col["hidden"] %}
                                     {% if col["editable"] %}
                                         {% if record["error_message"] and col["title"] == "Base Identifier" %}
-                                            <td class="bg-danger pt-3-half align-middle {{ col['title'] }}" contenteditable="true">{{ record[col["title"]] | safe }}</td>
+                                            <td class="bg-danger pt-3-half align-middle {{ col['title'] }}" contenteditable="true" spellcheck="false">{{ record[col["title"]] | safe }}</td>
                                         {% else %}
-                                            <td class="pt-3-half align-middle {{ col['title'] }}" contenteditable="true">{{ record[col["title"]] | safe }}</td>
+                                            <td class="pt-3-half align-middle {{ col['title'] }}" contenteditable="true" spellcheck="false">{{ record[col["title"]] | safe }}</td>
                                         {% endif %}
                                     {% else %}
                                         <td class="pt-3-half align-middle {{ col['title'] }}" contenteditable="false">{{ record[col["title"]] | safe }}</td>
