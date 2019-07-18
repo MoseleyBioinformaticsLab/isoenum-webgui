@@ -1,4 +1,5 @@
 {
     "table": ["Name", "Base Identifier", "ISO", "CHG", "Repr Identifier"],
-    "nmrtable": ["Name", "Resonance Description", "Base Identifier", "Repr Identifier", "NMR Specific InChI"]
+    "nmrtable": ["Name", "Base Identifier", "Repr Identifier", "Resonance Description", "NMR Specific InChI"]
+
 }
