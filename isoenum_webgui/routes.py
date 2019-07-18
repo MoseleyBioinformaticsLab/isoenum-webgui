@@ -174,3 +174,39 @@ def export_csv():
         headers={"Content-Disposition": "attachment;filename=records.csv"},
     )
     return response
+
+
+@app.route("/export_nmr_csv", methods=["GET", "POST"])
+def export_nmr_csv():
+    nmr_experiment_type = request.args.get("nmr_type")
+    selected_rows = request.form.get("nmr-csv-data")
+
+    if selected_rows:
+        row_ids = selected_rows.split(",")
+        textio = io.StringIO()
+        csv_writer = csv.writer(textio)
+        header = CSV_HEADER["nmrtable"]
+        csv_writer.writerow(header)
+
+        for row_id in row_ids:
+            record_id, _ = row_id.split("_")
+
+            record_name = RECORDS[record_id]["Name"]
+            base_inchi = RECORDS[record_id]["Base Identifier"]
+            repr_inchi = RECORDS[record_id]["Repr Identifier"]
+            descr = " + ".join(RECORDS[record_id]["NMR"][nmr_experiment_type][repr_inchi][row_id]["descr"])
+            nmr_inchi = RECORDS[record_id]["NMR"][nmr_experiment_type][repr_inchi][row_id]["inchi"]
+            row = [record_name, base_inchi, repr_inchi, descr, nmr_inchi]
+            csv_writer.writerow(row)
+
+        response = app.response_class(
+            response=textio.getvalue(),
+            status=201,
+            mimetype="text/csv",
+            headers={"Content-Disposition": "attachment;filename=records.csv"},
+        )
+        return response
+
+    else:
+        flash("Please select NMR-specific InChI", "danger")
+        return redirect(url_for("nmrtable", nmr_type=nmr_experiment_type))
