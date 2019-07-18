@@ -7,7 +7,7 @@
     <h4>Step 4. Select relevant NMR-specific InChI.</h4>
 
     <div class="btn-group">
-        <a href="{{ url_for("table") }}" class="btn btn-info" id="go-back-button">Go back</a>
+        <a href="{{ url_for('table') }}" class="btn btn-info" id="go-back-button">Go back</a>
     </div>
 
     <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
@@ -16,8 +16,12 @@
 
         <button id="save-button" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Save</button>
         <div class="dropdown-menu" aria-labelledby="export-button">
-            <a class="dropdown-item" href="{{ url_for("export_nmr_csv") }}">CSV</a>
-            <a class="dropdown-item" href="{{ url_for("export_json") }}">JSON</a>
+            <form id="save-nmr-form" method="post" action="{{ url_for("export_nmr_csv", nmr_type=nmr_experiment_type) }}">
+                <input id="nmr-table-data" type="hidden" name="nmr-csv-data" value="">
+                <input id="nmr-exp-type" type="hidden" name="nmr-type" value="">
+                <input class="dropdown-item" type="submit" id="save-csv" value="CSV">
+            </form>
+            <a class="dropdown-item" href="{{ url_for('export_json') }}" id="save-json">JSON</a>
         </div>
     </div>
 
@@ -26,7 +30,7 @@
 
 {% for row in table_data.values() %}
 
-    <p><b>{{ row['Base Identifier'].split("/")[1] }}</b></p>
+    <p><b>{{ row['Base Identifier'].split("/")[1] }} - {{ nmr_experiment_type }}</b></p>
 
     <table class="table table-editable table-bordered table-responsive-md text-center inchi-table" id="{{ row['record_id'] }}">
         <thead>
@@ -59,8 +63,8 @@
             </tr>
         </thead>
         <tbody>
-            {% for nmr_inchi in row["NMR"][nmr_experiment_type][row["Repr Identifier"]] %}
-                <tr class="nmr-specific-inchi-row" align="left">
+            {% for nmr_inchi in row["NMR"][nmr_experiment_type][row["Repr Identifier"]].values() %}
+                <tr class="nmr-specific-inchi-row" align="left" id="{{ nmr_inchi["row_id"] }}">
                     <td><input type="checkbox" title="Select row" class="group-{{ row["record_id"] }}"></td>
                     <td>
                         {{ " + <br>".join(nmr_inchi["descr"]) | safe }}
@@ -77,87 +81,6 @@
 {% endfor %}
 </div>
 
-<script>
-
-    $(document).ready(function() {
-
-        $(function(){
-            $('#select-all-button').on('click', function() {
-                $(".parent-checkbox").each(function(index){
-                    var checkboxSelectAll = $(this);
-                    var checkboxGroup = $(this).data("group");
-
-                    checkboxSelectAll.prop('checked', true);
-                    $(checkboxGroup).prop('checked', true);
-                });
-            });
-        });
-
-        $(function(){
-            $('#deselect-all-button').on('click', function() {
-                $(".parent-checkbox").each(function(index){
-                    var checkboxSelectAll = $(this);
-                    var checkboxGroup = $(this).data("group");
-
-                    checkboxSelectAll.prop('checked', false);
-                    $(checkboxGroup).prop('checked', false);
-                });
-            });
-        });
-
-        $(function(){
-            $(".parent-checkbox").each(function(index){
-                var checkboxSelectAll = $(this);
-                var checkboxGroup = $(this).data("group");
-
-                checkboxSelectAll.change(function(){  // Select all change
-                     $(checkboxGroup).prop('checked', checkboxSelectAll.prop("checked"));
-                });
-                $(checkboxGroup).change(function(){  // Individual checkboxes change
-                    checkboxSelectAll.prop('checked', false);
-                    if ($(checkboxGroup+':checked').length === $(checkboxGroup).length ){
-                        checkboxSelectAll.prop('checked', true);
-                    }
-                });
-            });
-        });
-
-        var getJSON = function(){
-            var jsonArray = [];
-
-            $('table').each(function(index) {
-
-                if (this.id.endsWith("-nmr-specific")) {
-                    var table = this;
-                    var parentTableID = this.id.replace("-nmr-specific", "");
-
-                    var jsonTable = tableToJSON('#' + table.id);
-                    var jsonParentTable = tableToJSON('#' + parentTableID);
-
-                    $.each($('table#' + table.id + ' tbody tr'), function(row_index) {
-                        if ($(this).find('td input').prop('checked')) {
-
-                            var result = {
-                                "Name": jsonParentTable[0]["Name"],
-                                "Resonance Description": jsonTable[row_index]["Resonance Description"],
-                                "Base Identifier": jsonParentTable[0]["Base Identifier"],
-                                "Repr Identifier": jsonParentTable[0]["Repr Identifier"],
-                                "NMR Specific InChI": jsonTable[row_index]["NMR Specific InChI"]};
-                            jsonArray.push(result);
-                        }
-                    });
-                }
-            });
-            return jsonArray;
-        };
-
-        $(function() {
-            $("#save-csv").click(function () {
-                $("#final-table-data-csv").val(JSON.stringify(getJSON()));
-            });
-        });
-    });
-
-</script>
+<script type="text/javascript" charset="utf8" src="{{ url_for('static', filename='custom/js/nmrtable.js') }}"></script>
 
 {% endblock content %}
