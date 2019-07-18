@@ -26,8 +26,8 @@
 
             <button id="save-button" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Save</button>
             <div class="dropdown-menu" aria-labelledby="export-button">
-                <a class="dropdown-item" href="{{ url_for("export_csv") }}">CSV</a>
-                <a class="dropdown-item" href="{{ url_for("export_json") }}">JSON</a>
+                <a class="dropdown-item" href="{{ url_for("export_csv") }}" download>CSV</a>
+                <a class="dropdown-item" href="{{ url_for("export_json") }}" download>JSON</a>
             </div>
 
         </div>
