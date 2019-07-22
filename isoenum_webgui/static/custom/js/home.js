@@ -7,6 +7,6 @@ $(document).ready(function() {
             var spinner = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
             $(this).addClass("disabled");
             $(this).append(spinner);
-        })
+        });
     });
 });
