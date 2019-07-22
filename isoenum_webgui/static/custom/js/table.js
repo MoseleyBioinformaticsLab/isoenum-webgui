@@ -152,4 +152,10 @@ $(document).ready(function() {
             });
         });
     });
+
+    $("#generate-nmr-button").click(function () {
+        var spinner = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+        $(this).addClass("disabled");
+        $(this).append(spinner);
+    });
 });
