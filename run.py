@@ -23,6 +23,7 @@ import threading
 import docopt
 
 from isoenum_webgui import app
+from isoenum_webgui import __version__
 
 
 def open_browser(port):
@@ -38,4 +39,4 @@ def cli(cmdargs):
 
 
 if __name__ == "__main__":
-    cli(docopt.docopt(doc=__doc__, version="0.1.0"))
+    cli(docopt.docopt(doc=__doc__, version=__version__))
