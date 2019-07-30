@@ -34,7 +34,7 @@ def cli(cmdargs):
         threading.Timer(0.5, open_browser, [], {"port": cmdargs["--port"]}).start()
         app.run(debug=False, port=cmdargs["--port"])
     else:
-        app.run(debug=True, port=cmdargs["--port"])
+        app.run(debug=False, port=cmdargs["--port"])
 
 
 if __name__ == "__main__":
