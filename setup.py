@@ -51,6 +51,7 @@ setup(
     package_data={"isoenum_webgui": [
         "config_files/*.json",
         "templates/*.html",
+        "static/ *"
     ]},
     platforms="any",
     long_description=readme(),
