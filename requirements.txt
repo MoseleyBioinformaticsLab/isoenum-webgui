@@ -1,0 +1,6 @@
+Flask
+Flask-Excel
+Flask-WTF
+docopt >= 0.6.2
+ctfile >= 0.1.8
+isoenum >= 0.4.0
