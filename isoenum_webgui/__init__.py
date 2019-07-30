@@ -23,16 +23,16 @@ app.config.from_object(Config)
 RECORDS = {}
 
 this_dir = os.path.dirname(__file__)
-with open(os.path.join(this_dir, "config", "example_project.json"), "r") as inf:
+with open(os.path.join(this_dir, "config_files", "example_project.json"), "r") as inf:
     EXAMPLE_PROJECT = json.load(inf)
 
-with open(os.path.join(this_dir, "config", "header.json"), "r") as inf:
+with open(os.path.join(this_dir, "config_files", "header.json"), "r") as inf:
     HEADER = json.load(inf)
 
-with open(os.path.join(this_dir, "config", "csv_header.json"), "r") as inf:
+with open(os.path.join(this_dir, "config_files", "csv_header.json"), "r") as inf:
     CSV_HEADER = json.load(inf)
 
-with open(os.path.join(this_dir, "config", "nmr_types.json"), "r") as inf:
+with open(os.path.join(this_dir, "config_files", "nmr_types.json"), "r") as inf:
     NMR_TYPES = json.load(inf)
 
 app.register_blueprint(errors)
