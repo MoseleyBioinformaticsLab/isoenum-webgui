@@ -48,11 +48,7 @@ setup(
     license="BSD",
     url="https://github.com/MoseleyBioinformaticsLab/isoenum-webgui",
     packages=find_packages(),
-    package_data={"isoenum_webgui": [
-        "config_files/*.json",
-        "templates/*.html",
-        "static/ *"
-    ]},
+    include_package_data=True,
     platforms="any",
     long_description=readme(),
     install_requires=REQUIRES,
