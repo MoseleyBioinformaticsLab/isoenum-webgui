@@ -12,12 +12,13 @@ from flask import Flask
 import flask_excel
 
 from .errors import errors
+from config import Config
 
 
 __version__ = "0.1.0"
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "you-will-never-guess"
+app.config.from_object(Config)
 
 RECORDS = {}
 
