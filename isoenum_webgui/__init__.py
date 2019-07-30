@@ -13,6 +13,9 @@ import flask_excel
 
 from .errors import errors
 
+
+__version__ = "0.1.0"
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "you-will-never-guess"
 
