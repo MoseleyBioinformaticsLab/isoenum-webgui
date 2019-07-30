@@ -12,7 +12,7 @@ from flask import Flask
 import flask_excel
 
 from .errors import errors
-from config import Config
+from .config import Config
 
 
 __version__ = "0.1.0"
