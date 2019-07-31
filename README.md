@@ -1,3 +1,3 @@
 # isoenum-webgui
 
-Create nmr-specific InChI for metabolites.
+Create NMR-specific InChI for metabolites.
