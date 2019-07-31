@@ -51,6 +51,7 @@ setup(
     include_package_data=True,
     platforms="any",
     long_description=readme(),
+    long_description_content_type='text/markdown',
     install_requires=REQUIRES,
     classifiers=[
         "Development Status :: 4 - Beta",
