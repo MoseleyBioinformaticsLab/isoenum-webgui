@@ -7,3 +7,7 @@ include isoenum_webgui/config_files/*.json
 include isoenum_webgui/templates/*.html
 recursive-include isoenum_webgui/static/ *
 recursive-include isoenum_webgui *.py
+include docs/Makefile
+include docs/make.bat
+include docs/requirements-rtd.txt
+recursive-include docs *.rst *.txt *.py *.png *.svg
