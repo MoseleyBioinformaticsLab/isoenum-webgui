@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
+isoenum_webgui.errors
+~~~~~~~~~~~~~~~~~~~~~
+
 Isotopic enumerator web interface custom exception handling.
 """
 
@@ -17,6 +20,7 @@ errors = Blueprint("errors", __name__)
 @errors.app_errorhandler(IsotopeSpecError)
 @errors.app_errorhandler(ChargeSpecError)
 def handle_error(error):
+    """Custom error handler."""
     message = [str(x) for x in error.args]
     status_code = 500
     success = False
