@@ -7,7 +7,9 @@ The isoenum-webgui command-line interface
 
 Usage:
     isoenum_webgui -h | --help
+
     isoenum_webgui --version
+
     isoenum_webgui [--port=<port>] [--browser] [--debug]
 
 Options:
