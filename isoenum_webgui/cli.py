@@ -6,17 +6,16 @@ The isoenum-webgui command-line interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Usage:
-    run -h | --help
-    run --version
-    run [--port=<port>] [--browser] [--debug]
+    isoenum_webgui -h | --help
+    isoenum_webgui --version
+    isoenum_webgui [--port=<port>] [--browser] [--debug]
 
 Options:
     -h, --help                      Show this screen.
     --version                       Show version.
-    -b, --browser                   Open default browser.
+    -b, --browser                   Open isoenum-webgui in a default browser.
     -p, --port=<port>               Port [default: 5000].
     --debug                         Debug mode flag.
-
 """
 
 import webbrowser
