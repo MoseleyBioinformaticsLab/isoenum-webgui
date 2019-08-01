@@ -48,7 +48,11 @@ def home():
 
             try:
                 table_data = request.get_array(field_name="file")
-                table_header = table_data.pop(0)
+
+                if len(table_data[0]) == 1 and table_data[0][0].lower() != "base identifier":
+                    table_header = ["Base Identifier"]
+                else:
+                    table_header = table_data.pop(0)
 
                 for table_row in table_data:
                     record = create_initial_record(header=table_header, row=table_row)
@@ -56,7 +60,6 @@ def home():
 
                 for i in generate_table(records=RECORDS):
                     progress_percentage = "{0:.0%}".format(i / len(RECORDS))
-                    print(progress_percentage)
 
             except FileTypeNotSupported:
                 flash("Invalid file", "danger")
