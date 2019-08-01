@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+isoenum_webgui.proc
+~~~~~~~~~~~~~~~~~~~
+
+This module contains `isoenum-webgui` data processing/transformation logic, i.e.
+it calls `isoenum` API methods in order to generate correct InChI, Molfiles and
+SVG images based upon input from the `isoenum-webgui`.
+"""
+
 import uuid
 import re
 
