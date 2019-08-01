@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
+isoenum_webgui.routes
+~~~~~~~~~~~~~~~~~~~~~
+
 Isotopic enumerator web interface routes.
 """
 
