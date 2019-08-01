@@ -38,6 +38,7 @@ from . import EXAMPLE_PROJECT
 @app.route("/", methods=["GET", "POST"])
 @app.route("/home", methods=["GET", "POST"])
 def home():
+    """Home."""
     file_input_form = FileForm()
     if file_input_form.validate_on_submit():
         if RECORDS:
@@ -78,6 +79,7 @@ def home():
 
 @app.route("/example", methods=["GET", "POST"])
 def example_project():
+    """Example project."""
     if RECORDS:
         RECORDS.clear()
     RECORDS.update(EXAMPLE_PROJECT)
@@ -86,6 +88,7 @@ def example_project():
 
 @app.route("/table", methods=["GET", "POST"])
 def table():
+    """Display base and representative InChI."""
     if request.method == "POST" and request.form.get("nmr-inchi-table-data"):
         nmr_experiment_type = request.form.get("select-nmr-experiment")
 
@@ -99,6 +102,7 @@ def table():
 
 @app.route("/nmrtable", methods=["GET", "POST"])
 def nmrtable():
+    """Display NMR-specific InChI."""
     nmr_experiment_type = request.args.get("nmr_type", "1D-1H")
     nmr_experiment_type = NMR_TYPES[nmr_experiment_type]
 
@@ -111,6 +115,7 @@ def nmrtable():
 
 @app.route("/update_record", methods=["POST"])
 def update():
+    """Update record."""
     record_id = request.form.get("record_id", "")
     new_record = update_record(record=request.form)
     RECORDS[record_id].update(new_record)
@@ -119,6 +124,7 @@ def update():
 
 @app.route("/add_record", methods=["POST"])
 def add():
+    """Add empty record."""
     record = create_empty_record()
     RECORDS[record["record_id"]] = record
     return jsonify({"record_id": record["record_id"]})
@@ -126,6 +132,7 @@ def add():
 
 @app.route("/remove_record", methods=["POST"])
 def remove():
+    """Remove record."""
     record_id = request.form.get("record_id", "")
     if record_id:
         try:
@@ -140,6 +147,7 @@ def remove():
 
 @app.route("/molfile/<record_id>/<record_type>", methods=["GET"])
 def display_molfile(record_id, record_type):
+    """Display Molfile."""
     if record_type == "repr":
         svg = RECORDS[record_id]["Repr SVG"]
         molfile = RECORDS[record_id]["Repr Molfile"]
@@ -153,6 +161,7 @@ def display_molfile(record_id, record_type):
 
 @app.route("/export_json", methods=["GET"])
 def export_json():
+    """Export as JSON."""
     response = app.response_class(
         response=json.dumps(RECORDS, indent=4),
         status=201,
@@ -164,6 +173,7 @@ def export_json():
 
 @app.route("/export_csv", methods=["GET"])
 def export_csv():
+    """Export as CSV."""
     textio = io.StringIO()
     csv_writer = csv.writer(textio)
     header = CSV_HEADER["table"]
@@ -184,6 +194,7 @@ def export_csv():
 
 @app.route("/export_nmr_csv", methods=["GET", "POST"])
 def export_nmr_csv():
+    """Export NMR-specific InChI as CSV."""
     nmr_experiment_type = request.args.get("nmr_type")
     selected_rows = request.form.get("nmr-csv-data")
 
