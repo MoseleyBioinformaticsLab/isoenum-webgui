@@ -8,12 +8,8 @@ Example:
     $ python run.py --debug
 """
 
-
-import docopt
-
-from isoenum_webgui import cli
-from isoenum_webgui import __version__
+from isoenum_webgui.__main__ import main
 
 
 if __name__ == "__main__":
-    cli.cli(docopt.docopt(doc=cli.__doc__, version=__version__))
+    main()
