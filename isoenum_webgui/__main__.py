@@ -36,6 +36,10 @@ def _remove_new_line_from_usage_patterns(docstr):
     return "\n".join(lines)
 
 
-if __name__ == "__main__":
+def main():
     docstr = _remove_new_line_from_usage_patterns(docstr=cli.__doc__)
     cli.cli(docopt.docopt(doc=docstr, version=__version__))
+
+
+if __name__ == "__main__":
+    main()
