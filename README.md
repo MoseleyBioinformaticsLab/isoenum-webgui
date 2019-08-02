@@ -1,3 +1,5 @@
 # isoenum-webgui
 
+[![Documentation Status](https://readthedocs.org/projects/isoenum-webgui/badge/?version=latest)](https://isoenum-webgui.readthedocs.io/en/latest/?badge=latest)
+
 Create NMR-specific InChI for metabolites.
