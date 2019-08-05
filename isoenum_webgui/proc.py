@@ -226,7 +226,7 @@ def create_svg_link(svg_str, record_id, record_type):
     :return: SVG link.
     :rtype: str
     """
-    svg_link = '<a href="{}" target="_blank">{}</a>'.format(
+    svg_link = '<a href="{}" class="popup">{}</a>'.format(
         url_for("display_molfile", record_id=record_id, record_type=record_type),
         svg_str,
     )
