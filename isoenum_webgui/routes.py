@@ -227,3 +227,9 @@ def export_nmr_csv():
     else:
         flash("Please select NMR-specific InChI", "danger")
         return redirect(url_for("nmrtable", nmr_type=nmr_experiment_type))
+
+
+@app.route("/about")
+def about():
+    """About page."""
+    return render_template("about.html")
