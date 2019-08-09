@@ -146,3 +146,86 @@ JSON
     }
 
 
+
+InChI Table View
+~~~~~~~~~~~~~~~~
+
+``InChI`` table view provides editable table interface where the user can update/change metabolite name,
+base identifier, isotopic properties and atom charges.
+
+.. image:: _static/gui/table.png
+
+
+How to update isotopic properties
+---------------------------------
+
+* Use ``isotope:atom:atom_number`` format to specify ``ISO`` properties. For example:
+
+    * ``13:C:1`` means that carbon atom at position ``1`` is isotope ``13``.
+    * ``13:C:2`` means that carbon atom at position ``2`` is isotope ``13``.
+
+
+.. image:: _static/gui/table_iso.png
+
+
+How to update charge properties
+-------------------------------
+
+* Use ``atom:atom_number:charge`` format to specify ``CHG`` properties. For example:
+
+    * ``O:4:-1`` means that oxygen atom at position ``4`` has charge ``-1``
+
+.. image:: _static/gui/table_iso_chg.png
+
+
+How to add/remove new row to table
+----------------------------------
+
+* The user can also add new editable row by using "Add row" button and insert valid ``InChI`` string.
+
+.. image:: _static/gui/table_add_row.png
+
+
+* The user can update row by using "Update" button to generate base and representative
+  identifiers and their corresponding visualizations.
+
+.. image:: _static/gui/table_add_row_update.png
+
+* The user can remove the row by using "Remove" button in the corresponding table row.
+
+
+.. image:: _static/gui/table_remove_row.png
+
+
+How to view corresponding Molfile
+---------------------------------
+
+* The user can view corresponding ``Molfile`` for both base and representative ``InChI`` by clicking on
+  metabolite visualization.
+
+    * Base ``Molfile``:
+
+    .. image:: _static/gui/molfile_base.png
+
+    * Repr ``Molfile``:
+
+    .. image:: _static/gui/molfile_repr.png
+
+
+How to save table view
+----------------------
+
+* The user can save the table into CSV or JSON file to save progress.
+
+.. image:: _static/gui/table_save.png
+
+
+How to generate NMR specific InChI
+----------------------------------
+
+* To generate NMR specific InChI for metabolites the user need to select
+  appropriate NMR experiment type and use "Use NMR specific InChI".
+
+.. image:: _static/gui/table_generate_nmr_inchi.png
+
+
