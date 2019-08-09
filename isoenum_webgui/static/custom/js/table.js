@@ -158,4 +158,13 @@ $(document).ready(function() {
         $(this).addClass("disabled");
         $(this).append(spinner);
     });
+
+    $(function() {
+        $("tbody").on("paste", "td[contenteditable=true]", function(event) {
+            event.preventDefault();
+            var text = (event.originalEvent || event).clipboardData.getData("text/plain");
+            document.execCommand("insertText", false, text);
+        });
+    });
+
 });
