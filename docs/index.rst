@@ -9,7 +9,8 @@ Welcome to isoenum-webgui's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
+   
+   gui
    api
    changelog
    license
