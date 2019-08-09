@@ -8,7 +8,13 @@
 
         <ul>
             <li>Use <strong class="text-monospace highlight">isotope:atom:atom_number</strong> format to specify <strong class="text-monospace highlight">ISO</strong> properties.</li>
+            <ul>
+                <li>For example, <strong class="text-monospace">13:C:2</strong> means that carbon atom at position <strong class="text-monospace">2</strong> is isotope <strong class="text-monospace">13</strong>.</li>
+            </ul>
             <li>Use <strong class="text-monospace highlight">atom:atom_number:charge</strong> format to specify <strong class="text-monospace highlight">CHG</strong> properties.</li>
+            <ul>
+                <li>For example, <strong class="text-monospace">O:4:-1</strong> means that oxygen atom at position <strong class="text-monospace">4</strong> has charge <strong class="text-monospace">-1</strong>.</li>
+            </ul>
         </ul>
 
     </div>
@@ -20,7 +26,7 @@
     </div>
 
     <div class="row">
-        <div class="btn-group">
+        <div class="btn-toolbar btn-group">
             <form id="generate-nmr-form" class="btn-group" method=post action="">
                 <select class="custom-select" id="select-nmr-experiment-button" name="select-nmr-experiment" title="Select NMR experiment">
                     <option value="1D-1H">1D-1H</option>
