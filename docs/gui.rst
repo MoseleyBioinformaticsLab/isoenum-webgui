@@ -229,3 +229,59 @@ How to generate NMR specific InChI
 .. image:: _static/gui/table_generate_nmr_inchi.png
 
 
+NMR specific InChI Tables View
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* NMR specific ``InChI`` table view provides the interface where the user can see
+  NMR specific ``InChI`` tables based upon selected NMR experiment type description.
+
+
+.. image:: _static/gui/nmrtable.png
+
+
+How to select NMR specific InChI
+--------------------------------
+
+* The user can examine tables that contain "Resonance Description" and corresponding
+  "NMR specific InChI" to save the appropriate identifiers that correspond to peaks
+  in the NMR spectrum.
+
+.. image:: _static/gui/nmrtable_select.png
+
+
+* The user can sort NMR specific tables by "Resonance Description", "NMR specific InChI", and "ME Group".
+  "ME" stands for "Magnetically Equivalent" ``InChI`` - ones that have similar "Resonance Description" and
+  identical ``InChI`` string.
+
+.. image:: _static/gui/nmrtable_select_sort.png
+
+
+How to save NMR table view
+--------------------------
+
+* The user can save the NMR table into CSV or JSON file to save progress.
+
+.. image:: _static/gui/nmrtable_save.png
+
+
+* Save to ``JSON`` is intended to save the project state, while save to ``CSV`` will create a ``CSV`` file
+  that will contain NMR specific ``InChI`` that can be directly used for data deposition.
+
+
+.. code:: none
+
+    Name,Base Identifier,Repr Identifier,Resonance Description,NMR Specific InChI
+    acetic acid,"InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)","InChI=1/C2H4O2/c1-2(3)4/h1H3,(H,3,4)/p-1/i1+1,2+1/fC2H3O2/q-1","[1H5,1H6,1H7:C1]HResonance","InChI=1/C2H4O2/c1-2(3)4/h1H3,(H,3,4)/p-1/i1+1H3,2+1/fC2H3O2/q-1"
+    acetic acid,"InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)","InChI=1/C2H4O2/c1-2(3)4/h1H3,(H,3,4)/p-1/i1+1,2+1/fC2H3O2/q-1","[1H5,1H6,1H7:C1]HResonance + [1H5,1H6,1H7:13C1]J1CH","InChI=1/C2H4O2/c1-2(3)4/h1H3,(H,3,4)/p-1/i1+1H3,2+1/fC2H3O2/q-1"
+    valine,"InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","[1H9,1H10,1H11:C1]HResonance","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1/i1H3/t3?,4-"
+    valine,"InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","[1H9,1H10,1H11:C1]HResonance + [1H9,1H10,1H11:13C1]J1CH","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1/i1+1H3/t3?,4-"
+    valine,"InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","[1H9,1H10,1H11:C1]HResonance + [1H9,1H10,1H11:1H15]J3HH","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1/i1H3,3H/t3?,4-"
+    valine,"InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","[1H9,1H10,1H11:C1]HResonance + [1H9,1H10,1H11:13C1]J1CH + [1H9,1H10,1H11:1H15]J3HH","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1/i1+1H3,3H/t3?,4-"
+    valine,"InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","[1H12,1H13,1H14:C2]HResonance","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1/i1H3/t3?,4-"
+    valine,"InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","[1H12,1H13,1H14:C2]HResonance + [1H12,1H13,1H14:13C2]J1CH","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1/i1+1H3/t3?,4-"
+    valine,"InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","[1H12,1H13,1H14:C2]HResonance + [1H12,1H13,1H14:1H15]J3HH","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1/i1H3,3H/t3?,4-"
+    valine,"InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","[1H12,1H13,1H14:C2]HResonance + [1H12,1H13,1H14:13C2]J1CH + [1H12,1H13,1H14:1H15]J3HH","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1/i1+1H3,3H/t3?,4-"
+    valine,"InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1",[1H15:C3]HResonance,"InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1/i3H"
+    valine,"InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1",[1H15:C3]HResonance + [1H15:13C3]J1CH,"InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1/i3+1H"
+    valine,"InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1","[1H15:C3]HResonance + [1H15:1H9,1H10,1H11]J3HH","InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1/i1H3,3H/t3?,4-"
+
