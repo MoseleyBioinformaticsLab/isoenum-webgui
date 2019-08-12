@@ -4,10 +4,6 @@ The isoenum-webgui API Reference
 
 .. automodule:: isoenum_webgui
 
-.. automodule:: isoenum_webgui.cli
-
-.. autofunction:: cli
-
 .. automodule:: isoenum_webgui.proc
     :members:
     :member-order: bysource
