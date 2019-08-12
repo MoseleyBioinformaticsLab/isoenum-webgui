@@ -92,8 +92,8 @@ def update_record(record):
     :rtype: dict
     """
     record_inchi_str = record["Base Identifier"]
-    record_iso_str = record["ISO"]
-    record_chg_str = record["CHG"]
+    record_iso_str = record["ISO"].upper()
+    record_chg_str = record["CHG"].upper()
     record_id = record["record_id"]
 
     iso_pattern = re.compile("\d+:[a-zA-z]{1,2}:\d+")
