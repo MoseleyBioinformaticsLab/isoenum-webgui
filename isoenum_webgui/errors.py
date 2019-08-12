@@ -12,6 +12,7 @@ from flask import Blueprint, jsonify
 
 from ctfile.exceptions import IsotopeSpecError
 from ctfile.exceptions import ChargeSpecError
+from isoenum.exceptions import EmptyCTFileError
 
 
 errors = Blueprint("errors", __name__)
@@ -19,6 +20,7 @@ errors = Blueprint("errors", __name__)
 
 @errors.app_errorhandler(IsotopeSpecError)
 @errors.app_errorhandler(ChargeSpecError)
+@errors.app_errorhandler(EmptyCTFileError)
 def handle_error(error):
     """Custom error handler."""
     message = [str(x) for x in error.args]
