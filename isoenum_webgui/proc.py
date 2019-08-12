@@ -6,8 +6,8 @@ isoenum_webgui.proc
 ~~~~~~~~~~~~~~~~~~~
 
 This module contains `isoenum-webgui` data processing/transformation logic, i.e.
-it calls `isoenum` API methods in order to generate correct InChI, Molfiles and
-SVG images based upon input from the `isoenum-webgui`.
+it calls the appropriate `isoenum` API methods in order to generate correct `InChI`,
+`Molfile`s and SVG images based upon input from the `isoenum-webgui`.
 """
 
 import uuid
