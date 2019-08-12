@@ -4,7 +4,7 @@ The isoenum-webgui GUI Reference
 Home View
 ~~~~~~~~~
 
-The home view allows the user to select CSV or JSON file or create example project.
+The home view allows the user to select a CSV or JSON file or create an example project.
 
 .. image:: _static/gui/home.png
 
@@ -33,7 +33,7 @@ CSV
     "InChI=1S/C6H6/c1-2-4-6-5-3-1/h1-6H"
     "InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1"
 
-* ``CSV`` file saved from table view:
+* ``CSV`` file saved from the ``InChI`` Table View:
 
 .. code:: none
 
@@ -46,7 +46,7 @@ CSV
 JSON
 ####
 
-* ``JSON`` file saved from table view:
+* ``JSON`` file saved from the ``InChI`` Table View:
 
 .. code:: json
 
@@ -150,14 +150,14 @@ JSON
 InChI Table View
 ~~~~~~~~~~~~~~~~
 
-``InChI`` table view provides editable table interface where the user can update/change metabolite name,
-base identifier, isotopic properties and atom charges.
+The ``InChI`` Table View provides an editable table interface where the user can
+update/change the metabolite name, base identifier, isotopic properties and atom charges.
 
 .. image:: _static/gui/table.png
 
 
-How to update isotopic properties
----------------------------------
+How to update isotopic properties.
+----------------------------------
 
 * Use ``isotope:atom:atom_number`` format to specify ``ISO`` properties. For example:
 
@@ -168,8 +168,8 @@ How to update isotopic properties
 .. image:: _static/gui/table_iso.png
 
 
-How to update charge properties
--------------------------------
+How to update charge properties.
+--------------------------------
 
 * Use ``atom:atom_number:charge`` format to specify ``CHG`` properties. For example:
 
@@ -178,30 +178,30 @@ How to update charge properties
 .. image:: _static/gui/table_iso_chg.png
 
 
-How to add/remove new row to table
-----------------------------------
+How to add/remove new row to table.
+-----------------------------------
 
-* The user can also add new editable row by using "Add row" button and insert valid ``InChI`` string.
+* The user can also add a new editable row by using "Add row" button and insert valid ``InChI`` string.
 
 .. image:: _static/gui/table_add_row.png
 
 
-* The user can update row by using "Update" button to generate base and representative
-  identifiers and their corresponding visualizations.
+* The user can update the row by using the "Update" button to generate base and
+  representative identifiers and their corresponding visualizations.
 
 .. image:: _static/gui/table_add_row_update.png
 
-* The user can remove the row by using "Remove" button in the corresponding table row.
 
+* The user can remove the row by using the "Remove" button in the corresponding table row.
 
 .. image:: _static/gui/table_remove_row.png
 
 
-How to view corresponding Molfile
----------------------------------
+How to view corresponding Molfile.
+----------------------------------
 
-* The user can view corresponding ``Molfile`` for both base and representative ``InChI`` by clicking on
-  metabolite visualization.
+* The user can view the corresponding ``Molfile`` for both base and representative ``InChI``
+  by clicking on the metabolite image (i.e. Base SVG or Repr SVG columns).
 
     * Base ``Molfile``:
 
@@ -212,25 +212,25 @@ How to view corresponding Molfile
     .. image:: _static/gui/molfile_repr.png
 
 
-How to save table view
-----------------------
+How to save table view.
+-----------------------
 
-* The user can save the table into CSV or JSON file to save progress.
+* The user can save the table into CSV or JSON files to save their progress.
 
 .. image:: _static/gui/table_save.png
 
 
-How to generate NMR specific InChI
-----------------------------------
+How to generate NMR specific InChI.
+-----------------------------------
 
-* To generate NMR specific InChI for metabolites the user need to select
-  appropriate NMR experiment type and use "Use NMR specific InChI".
+* To generate NMR specific InChI for metabolites, the user needs to select
+  the appropriate NMR experiment type and click the "Use NMR specific InChI".
 
 .. image:: _static/gui/table_generate_nmr_inchi.png
 
 
-NMR specific InChI Tables View
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+NMR specific InChI Table View
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * NMR specific ``InChI`` table view provides the interface where the user can see
   NMR specific ``InChI`` tables based upon selected NMR experiment type description.
@@ -239,27 +239,27 @@ NMR specific InChI Tables View
 .. image:: _static/gui/nmrtable.png
 
 
-How to select NMR specific InChI
---------------------------------
+How to select NMR specific InChI.
+---------------------------------
 
 * The user can examine tables that contain "Resonance Description" and corresponding
   "NMR specific InChI" to save the appropriate identifiers that correspond to peaks
-  in the NMR spectrum.
+  in their NMR spectra.
 
 .. image:: _static/gui/nmrtable_select.png
 
 
 * The user can sort NMR specific tables by "Resonance Description", "NMR specific InChI", and "ME Group".
   "ME" stands for "Magnetically Equivalent" ``InChI`` - ones that have similar "Resonance Description" and
-  identical ``InChI`` string.
+  identical ``InChI`` strings.
 
 .. image:: _static/gui/nmrtable_select_sort.png
 
 
-How to save NMR table view
---------------------------
+How to save NMR table view.
+---------------------------
 
-* The user can save the NMR table into CSV or JSON file to save progress.
+* The user can save the NMR table into CSV or JSON files to save their progress.
 
 .. image:: _static/gui/nmrtable_save.png
 
