@@ -104,7 +104,10 @@ def update_record(record):
 
     try:
         base_molfile = isoenum.fileio.create_ctfile(record_inchi_str)
+    except isoenum.exceptions.EmptyCTFileError as err:
+        raise isoenum.exceptions.EmptyCTFileError('Invalid "Base Identifier".')
 
+    try:
         base_molfile_iso = [
             (atom.isotope, atom.atom_symbol, atom.atom_number)
             for atom in base_molfile.atoms
