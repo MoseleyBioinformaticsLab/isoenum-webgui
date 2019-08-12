@@ -25,7 +25,7 @@ $(document).ready(function() {
     function applyTooltip(tdElement, errorMessage) {
         tdElement.tooltip("dispose");
         tdElement.addClass("bg-danger");
-        tdElement.attr("title", "Incorrect isotope specification: " + errorMessage);
+        tdElement.attr("title", "ERROR: " + errorMessage);
         tdElement.attr("data-toggle", "tooltip");
         tdElement.attr("data-placement", "top");
         tdElement.tooltip("enable");
@@ -65,12 +65,16 @@ $(document).ready(function() {
                     applyTooltip(tdCHG, errorMessage);
                 }
 
+                if (errorType === "EmptyCTFileError") {
+                    applyTooltip(tdBaseIdentifier, errorMessage);
+                }
             });
 
             request.done(function(data) {
 
                 removeTooltip(tdISO);
                 removeTooltip(tdCHG);
+                removeTooltip(tdBaseIdentifier);
 
                 $('tr#' + record_id + ' > td.Base.SVG').html(data["Base SVG"]);
                 $('tr#' + record_id + ' > td.ISO').html(data["ISO"]);
