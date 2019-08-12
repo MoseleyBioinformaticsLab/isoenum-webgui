@@ -15,7 +15,7 @@ from .errors import errors
 from .config import Config
 
 
-__version__ = "0.1.0.post2"
+__version__ = "0.2.0"
 
 app = Flask(__name__)
 app.config.from_object(Config)
