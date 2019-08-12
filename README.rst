@@ -44,14 +44,14 @@ The ``isoenum-webgui`` package runs under Python 3.4+. Use `pip <https://pip.pyp
 Install on Linux, Mac OS X
 --------------------------
 
-.. code-block::
+.. code:: bash
 
    python3 -m pip install isoenum-webgui
 
 Install on Windows
 ------------------
 
-.. code-block::
+.. code:: bash
 
    py -3 -m pip install isoenum-webgui
 
@@ -74,14 +74,14 @@ Development version installation
 Install development version on Linux, Mac OS X
 ----------------------------------------------
 
-.. code-block::
+.. code:: bash
 
    python3 -m pip install git+git://github.com/MoseleyBioinformaticsLab/isoenum-webgui.git
 
 Install development version on Windows
 --------------------------------------
 
-.. code-block::
+.. code:: bash
 
    py -3 -m pip install git+git://github.com/MoseleyBioinformaticsLab/isoenum-webgui.git
 
