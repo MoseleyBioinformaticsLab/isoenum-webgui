@@ -95,6 +95,7 @@ def update_record(record):
     record_iso_str = record["ISO"].upper()
     record_chg_str = record["CHG"].upper()
     record_id = record["record_id"]
+    record_name = record["Name"]
 
     iso_pattern = re.compile("\d+:[a-zA-z]{1,2}:\d+")
     chg_pattern = re.compile("[a-zA-Z]{1,2}:\d+:[+-]\d+")
@@ -160,6 +161,7 @@ def update_record(record):
         html_chg_str = "<br>".join(chg_list)
 
         record = {
+            "Name": record_name,
             "Base Identifier": record_inchi_str,
             "Base SVG Str": base_svg_str,
             "Base SVG": base_svg_link,
@@ -175,6 +177,7 @@ def update_record(record):
     except ValueError as err:
         error_message = " ".join(err.args)
         record = {
+            "Name": record_name,
             "Base Identifier": record_inchi_str,
             "Base SVG Str": "",
             "Base SVG": "",
