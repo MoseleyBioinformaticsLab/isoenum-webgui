@@ -14,6 +14,7 @@ Welcome to isoenum-webgui's documentation!
    :caption: Contents:
 
    gui
+   cli
    api
    changelog
    license
