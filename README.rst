@@ -25,8 +25,8 @@ isoenum-webgui
 
 ``isoenum-webgui`` provides Flask-based web user interface that uses ``isoenum`` package
 to generate accurate InChI (\ `International Chemical Identifier <https://www.inchi-trust.org/>`_\ ) 
-for metabolites based on standard NMR experiments descriptions (currently ``1D-1H`` and 
-``1D-CHSQC``\ ) in order to improve data reusability of metabolomics data.
+for NMR metabolite features based on standard NMR experimental descriptions
+(currently ``1D-1H`` and ``1D-CHSQC``\ ) in order to improve data reusability of metabolomics data.
 
 Links
 ~~~~~
