@@ -6,10 +6,13 @@
 Welcome to isoenum-webgui's documentation!
 ==========================================
 
+.. include:: ../README.rst
+
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   
+
    gui
    api
    changelog
