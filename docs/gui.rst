@@ -16,7 +16,7 @@ CSV
 
 * ``CSV`` file containing ``InChI`` strings:
 
-.. code:: none
+.. code::
 
     Base Identifier
     "InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)"
@@ -26,7 +26,7 @@ CSV
 
 * ``CSV`` file containing "Base Identifier" header and ``InChI`` strings:
 
-.. code:: none
+.. code::
 
     Base Identifier
     "InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)"
@@ -35,7 +35,7 @@ CSV
 
 * ``CSV`` file saved from the ``InChI`` Table View:
 
-.. code:: none
+.. code::
 
     Name,Base Identifier,ISO,CHG,Repr Identifier
     acetic acid,"InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)",13:C:1<br>13:C:2,O:4:-1,"InChI=1/C2H4O2/c1-2(3)4/h1H3,(H,3,4)/p-1/i1+1,2+1/fC2H3O2/q-1"
@@ -268,7 +268,7 @@ How to save NMR table view.
   that will contain NMR specific ``InChI`` that can be directly used for data deposition.
 
 
-.. code:: none
+.. code::
 
     Name,Base Identifier,Repr Identifier,Resonance Description,NMR Specific InChI
     acetic acid,"InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)","InChI=1/C2H4O2/c1-2(3)4/h1H3,(H,3,4)/p-1/i1+1,2+1/fC2H3O2/q-1","[1H5,1H6,1H7:C1]HResonance","InChI=1/C2H4O2/c1-2(3)4/h1H3,(H,3,4)/p-1/i1+1H3,2+1/fC2H3O2/q-1"
