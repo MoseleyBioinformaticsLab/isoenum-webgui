@@ -6,7 +6,7 @@ Release History
 
 **Improvements**
 
-- Added popup window for base and representative ``Molfile``s.
+- Added popup window for base and representative molfiles.
 - Strip out html on paste event for editable table.
 - Updated templates.
 - Added error handling for "Base Identifier" column.
