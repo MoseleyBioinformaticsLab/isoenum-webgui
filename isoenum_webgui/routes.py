@@ -233,3 +233,10 @@ def export_nmr_csv():
 def about():
     """About page."""
     return render_template("about.html")
+
+
+@app.after_request
+def after_request(response):
+    """Do not cache responses."""
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, max-age=0"
+    return response
